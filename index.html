@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEMORY LOSS</title>
+    
+    <!-- Add the Gloria Hallelujah font link -->
+    <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap" rel="stylesheet">
+
+    <style>
+        /* Now using Gloria Hallelujah font */
+        body {
+            font-family: 'Gloria Hallelujah', cursive;
+            background: #020432;
+            color: rgb(255, 237, 230);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            position: relative;
+        }
+
+
+        .memory-container {
+            white-space: nowrap;
+            overflow: hidden;
+            width: 100%;
+            position: absolute;
+            display: flex;
+        }
+
+        .memory {
+    font-size: 3vw;
+    display: inline-block;
+    animation: scrollText 100s linear infinite;
+    animation-delay: 0s;
+}
+
+@keyframes scrollText {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-100%); }
+}
+
+        .name {
+            font-weight: bold;
+        }
+
+        .crossed-out {
+            text-decoration: line-through;
+        }
+
+         /* Style the GIF at the bottom */
+         .bottom-gif {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            z-index: 10; /* Ensure it stays on top of other content */
+        } 
+    </style>
+    
+</head>
+<body>
+    <div class="memory-container">
+        <p class="memory" id="memory-text">
+            We had two beautiful children, <span class="name">Alex</span> and <span class="name">Michael</span>... or was it <span class="name">Nathan</span>? 
+            We would sit by the lake, and he would tell me stories. I remember my husband, <span class="name">Nathan</span>... or was it <span class="name">James</span>? 
+            The sun would set, and the laughter of the children filled the air. That was yesterday. Or last week...
+            We had a house by the river, with a garden full of roses... no they were daisies.
+            I remember my husband bringing me flowers every Sunday. Was it Sunday? Time blurs. 
+            We would dance in the living room. The radio played our song. What was our song? 
+            I can almost hear it... I remember...
+        </p>
+    </div>
+ <!-- Display the GIF directly -->
+ <div class="bottom-gif">
+    <img src="MEMORYLOSS.GIF" alt="Looping GIF" id="gif" />
+</div>
+
+ <!-- Audio element -->
+ <audio id="background-audio" autoplay loop>
+    <source src="gutwrenching.mp3.MP3" type="audio/mp3">
+    Your browser does not support the audio element.
+</audio>
+
+<style>
+    /* Style the GIF at the bottom to fill the width */
+    .bottom-gif img {
+        width: 100%;    /* Make the GIF fill the container's width */
+        height: 100%;   /* Maintain the aspect ratio */
+        opacity: 0;     /* Initially make the GIF invisible */
+        transition: opacity 0.5s ease-in-out;
+    }
+
+    /* Move the GIF lower than the bottom */
+    .bottom-gif {
+        position: fixed;
+        bottom: -300px;    /* Change this value to adjust how far up or down the GIF is */
+        width: 100%;
+        z-index: 10;  /* Keeps it on top */
+    }
+
+    /* Add flashing in and out effect */
+    @keyframes flashInOut {
+        0% {
+            opacity: 0;
+        }
+        33% {
+            opacity: 1; /* Flash in (after 10 seconds) */
+        }
+        66% {
+            opacity: 1; /* Keep visible */
+        }
+        100% {
+            opacity: 0; /* Flash out (after 20 seconds) */
+        }
+    }
+
+    /* Class for flashing effect */
+    .flash {
+        animation: flashInOut 30s infinite; /* Run animation every 30 seconds */
+    }
+</style>
+
+<script>
+    // Function to apply flash effect every 30 seconds
+    setInterval(function() {
+        const gif = document.getElementById('gif');
+        gif.classList.add('flash');  // Add flash effect class
+    }, 30000); // Trigger every 30 seconds
+</script>
+
+    <script>
+let names = document.querySelectorAll('.name');
+let nameOptions = ['Nathan', 'James', 'Alex', 'Michael', 'John'];
+
+function jumbleNames() {
+    names.forEach(name => {
+        const action = Math.random(); // Random number between 0 and 1
+
+        name.classList.remove('crossed-out'); // Remove crossed-out effect if it was applied
+
+        if (action > 0.8) {
+            // 20% chance to swap the name
+            name.innerText = nameOptions[Math.floor(Math.random() * nameOptions.length)];
+        } else if (action > 0.5) {
+            // 30% chance to blackout the name ('████')
+            name.innerText = '████';
+        } else {
+            // 50% chance to add the crossed-out effect (line-through)
+            name.classList.add('crossed-out');
+        }
+    });
+}
+
+setInterval(jumbleNames, 2000); // Adjust this to control speed
+
+    </script>
+</body>
+</html>
